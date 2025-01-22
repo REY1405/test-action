@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: return the output string
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: output string
         id: final_string
         uses: ./
