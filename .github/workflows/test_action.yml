@@ -1,0 +1,16 @@
+name: TEST ACTION
+on:
+  workflow_dispatch:
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    name: return the output string
+    steps:
+      - name: output string
+        id: final_string
+        uses: ./
+        with:
+          name: Rishi
+      - name: print the message
+        run: echo "${{ steps.final_string.outputs.output_string}}"

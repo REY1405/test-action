@@ -1,0 +1,28 @@
+name: 'test_action'
+description: 'it will take input and returns the string'
+inputs:
+  name: 
+    description: 'Enter a name'
+    required: true
+    default: John
+outputs:
+  output_string:
+    description: 'this will give output'
+    value: ${{ steps.final_string.outputs.output_string }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: install dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+    - name: pass input to shell
+      run: echo "INPUT_NAME=${{ inputs.name }}" >> $GITHUB_ENV
+      shell: bash
+    - name: fetch's the output string
+      id: final_string                 
+      run: python src/greeting.py
+      shell: bash
