@@ -25,4 +25,5 @@ runs:
     - name: fetch's the output string
       id: final_string                 
       run: python src/greeting.py
+      working-directory: ./src
       shell: bash
