@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:  
+    inputs:
+      services:
+        description: "comma separated list of services"
+        required: true
+        default: "service-a, service-b"
+jobs:
+  deploy-multi:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: ${{ fromJson('["service-a", "service-b"]')}}
+    steps:
+      -  name: call deploy for ${{ matrix.service}}
+         run: echo ${{ matrix.service }}
+  
