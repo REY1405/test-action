@@ -28,11 +28,13 @@ jobs:
         #!/bin/bash
 
         # Fetch all tags including remote
-        git fetch --prune --unshallow --tags 2>/dev/null || git fetch --tags 2>/dev/null
+        git fetch --prune --unshallow --tags
 
         # Get the latest tag matching vX.Y.Z pattern, sorted by creatordate descending
-        LATEST_TAG=$(git tag --sort=-creatordate | grep -E "^v[0-9]+\.[0-9]+\.[0-9]+$" | head -n1)
-
+        LATEST_TAG=$(git tag --sort=-creatordate |  grep "^v[0-9].[0-9].[0-9]" | head -n1 | awk -Fv '{print $2}')
+        
+        echo $LATEST_TAG 
+        
         if [[ -z "$LATEST_TAG" ]]; then
             # No tags found, start from v0.0.0
             ENTITY_1=0
